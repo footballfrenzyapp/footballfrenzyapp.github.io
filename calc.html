@@ -33,6 +33,19 @@
   <!-- End Google Tag Manager -->
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Remove spinner buttons from number inputs */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  </style>
+
   <title>Football Frenzy App</title>
 </head>
 
@@ -51,6 +64,7 @@
     })(window, document, "script", "dataLayer", "GTM-5BKX5H35");
   </script>
   <!-- End Google Tag Manager -->
+
   <!-- CONTENT -->
   <main class="h-full">
     <!-- Hero Section -->
@@ -67,114 +81,146 @@
           <div class="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
             <div>
               <p class="text-lg leading-8 text-gray-600">
-                Calculate your potential revenue by entering the number of tickets sold and the amount of money you want
-                to raise. By addjusting your ticket price, and payout structure, you can see how much money you can
-                raise.
+                Calculate your potential revenue by entering the payout structure and the cost of a ticket. By
+                addjusting your ticket price, and payout structure, you can see how much money you can raise.
               </p>
             </div>
             <div class="p-4 mt-4">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gradient-to-r from-sky-700 to-sky-900">
-                  <tr>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                      Input
-                    </th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                      Value
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Number of Tickets</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                      <input type="number" class="w-32 px-2 py-1 border rounded" min="0" step="1">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Price per Ticket</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                      <input type="number" class="w-32 px-2 py-1 border rounded" min="0" step="0.01">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Total Revenue</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">$0.00</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Prize Pool</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">$0.00</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Organization Share</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">$0.00</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Platform Fee</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">$0.00</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Net Proceeds</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">$0.00</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="overflow-x-auto shadow-md rounded-lg">
+                <!-- Table content here -->
+                <table id="payout-table" class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-sky-900">
+                    <tr>
+                      <th scope="col"
+                        class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                        Place
+                      </th>
+                      <th scope="col"
+                        class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                        Prize
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        🥇 1st Place</td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="firstPlace" value="250" class="w-20 px-2 py-1 border rounded" min="0"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        🥈 2nd Place</td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="secondPlace" value="100" class="w-20 px-2 py-1 border rounded" min="0"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        🥉 3rd Place</td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="thirdPlace" value="75" class="w-20 px-2 py-1 border rounded" min="0"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        4th Place</td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="fourthPlace" value="50" class="w-20 px-2 py-1 border rounded" min="0"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        Last Place</td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="lastPlace" value="25" class="w-20 px-2 py-1 border rounded" min="0"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        <div class="flex items-center gap-2">
+                          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                          </svg>
+                          Ticket Cost
+                        </div>
+                      </td>
+                      <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        <input type="number" id="ticketCost" value="20" class="w-20 px-2 py-1 border rounded" min="1"
+                          step="1">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="px-4 sm:px-6 py-4 text-center">
+                        <button id="calculateBtn" class="bg-sky-900 hover:bg-sky-800 text-white font-bold py-2 px-4 rounded">
+                          Calculate
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div class="mt-10 w-full max-w-lg rounded-2xl sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"
             style="height: 300px;">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gradient-to-r from-sky-700 to-sky-900">
-                <tr>
-                  <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Column
-                    1</th>
-                  <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Column
-                    2</th>
-                  <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Column
-                    3</th>
-                  <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Column
-                    4</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 1, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 1, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 1, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 1, Col 4</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 2, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 2, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 2, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 2, Col 4</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 3, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 3, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 3, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 3, Col 4</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 4, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 4, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 4, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 4, Col 4</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 5, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 5, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 5, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 5, Col 4</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 6, Col 1</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 6, Col 2</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 6, Col 3</td>
-                  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Row 6, Col 4</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="overflow-x-auto shadow-md rounded-lg">
+              <table id="potential-revenue-table" class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-sky-900">
+                  <tr>
+                    <th scope="col"
+                      class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <div class="flex items-center gap-2">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                        </svg>
+                        <span>Sold</span>
+                      </div>
+                    </th>
+                    <th scope="col"
+                      class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <div class="flex items-center gap-2">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Revenue
+                      </div>
+                    </th>
+                    <th scope="col"
+                      class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <div class="flex items-center gap-2">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l5.707 5.707a.996.996 0 010 1.414l-8.586 8.586a.996.996 0 01-1.414 0l-5.707-5.707A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                        </svg>
+                        Payouts
+                      </div>
+                    </th>
+                    <th scope="col"
+                      class="px-4 sm:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <div class="flex items-center gap-2">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                        </svg>
+                        Profit
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -212,11 +258,54 @@
         </a </div>
         <div class="mt-8 md:order-1 md:mt-0">
           <p class="text-center text-xs leading-5 text-gray-500">
-            &copy; 2025 Football Frenzy App , Inc. All rights reserved.
+            &copy; 2025 <a href="https://footballfrenzy.app" class="text-gray-500 hover:text-gray-600">Football Frenzy
+              App</a> , Inc. All rights reserved.
           </p>
         </div>
       </div>
   </footer>
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', function () {
+      // Get input values
+      const firstPlace = parseFloat(document.getElementById('firstPlace').value) || 0;
+      const secondPlace = parseFloat(document.getElementById('secondPlace').value) || 0;
+      const thirdPlace = parseFloat(document.getElementById('thirdPlace').value) || 0;
+      const fourthPlace = parseFloat(document.getElementById('fourthPlace').value) || 0;
+      const lastPlace = parseFloat(document.getElementById('lastPlace').value) || 0;
+      const ticketCost = parseFloat(document.getElementById('ticketCost').value) || 0;
+
+      // Calculate total payouts for one week
+      const weeklyPayouts = firstPlace + secondPlace + thirdPlace + fourthPlace + lastPlace;
+      // Calculate total payouts for the season (18 weeks)
+      const totalPayouts = weeklyPayouts * 18;
+
+      // Array of ticket quantities to calculate
+      const ticketQuantities = [500, 1000, 1500, 2000, 3000, 4096];
+
+      // Get the table body of the potential revenue table
+      const tableBody = document.querySelector('#potential-revenue-table tbody');
+      // Clear existing rows
+      tableBody.innerHTML = '';
+
+      // Generate new rows for each ticket quantity
+      ticketQuantities.forEach(quantity => {
+        const revenue = quantity * ticketCost;
+        const profit = revenue - totalPayouts;
+
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50 transition-colors duration-200';
+
+        row.innerHTML = `
+            <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">${quantity}</td>
+            <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">$${revenue.toLocaleString()}</td>
+            <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">$${totalPayouts.toLocaleString()}</td>
+            <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600">$${profit.toLocaleString()}</td>
+          `;
+
+        tableBody.appendChild(row);
+      });
+    });
+  </script>
 </body>
 
 </html>
